@@ -64,8 +64,13 @@ class StatulRoman {
     }
 
     public static void afisareForConditie(Conditie conditie) {
-        for (Firma f : firme) {
+        /*for (Firma f : firme) {
             if (conditie.isRespected(f).orElse(false)) {
+                System.out.println(f);
+            }
+        }*/
+        for (Firma f : firme) {
+            if (conditie.isRespected(f)) {
                 System.out.println(f);
             }
         }
@@ -191,27 +196,31 @@ class FirmaNoTva extends Firma {
 }
 
 interface Conditie {
-    Optional<Boolean> isRespected(Firma firma);
+    //Optional<Boolean> isRespected(Firma firma);
+    boolean isRespected(Firma firma);
 }
 
 class VenitMaiMareDeZeceMii implements Conditie {
     @Override
-    public Optional<Boolean> isRespected(Firma firma) {
-        return Optional.of(firma.getVenit() > 10000);
+    /*public Optional<Boolean> isRespected(Firma firma) {return Optional.of(firma.getVenit() > 10000); }*/
+    public boolean isRespected(Firma firma) {
+        return firma.getVenit() > 10000;
     }
 }
 
 class MaiMultDeCinciAngajati implements Conditie {
     @Override
-    public Optional<Boolean> isRespected(Firma firma) {
-        return Optional.of(firma.getAngajati().size() > 5);
+    /*public Optional<Boolean> isRespected(Firma firma) {return Optional.of(firma.getAngajati().size() > 5);}*/
+    public boolean isRespected(Firma firma) {
+        return firma.getAngajati().size() > 5;
     }
 }
 
 class FirmeFaraAngajati implements Conditie {
     @Override
-    public Optional<Boolean> isRespected(Firma firma) {
-        return Optional.of(firma.getAngajati().isEmpty());
+    /*public Optional<Boolean> isRespected(Firma firma) {return Optional.of(firma.getAngajati().isEmpty());}*/
+    public boolean isRespected(Firma firma) {
+        return firma.getAngajati().isEmpty();
     }
 }
 
@@ -223,8 +232,9 @@ class FirmeAnumitaLocatie implements Conditie {
     }
 
     @Override
-    public Optional<Boolean> isRespected(Firma firma) {
-        return Optional.of(firma.getLocalitate().equalsIgnoreCase(localitate));
+    /* public Optional<Boolean> isRespected(Firma firma) {return Optional.of(firma.getLocalitate().equalsIgnoreCase(localitate));}*/
+    public boolean isRespected(Firma firma) {
+        return firma.getLocalitate().equalsIgnoreCase(localitate);
     }
 }
 
